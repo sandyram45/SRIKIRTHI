@@ -1,0 +1,68 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Outstanding Balances</h1>
+          </div><!-- /.col -->
+          <!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <br>
+      <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h2 class="card-title">Outstanding Balances</h2>
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-end">
+                    {% if balances.has_previous %}
+                        <li class="page-item"><a href="?page=1" class="page-link">&laquo; First</a></li>
+                        <li class="page-item"><a href="?page={{ balances.previous_page_number }}" class="page-link">Previous</a></li>
+                    {% endif %}
+                    <li class="page-item"><a class="page-link">Page {{ balances.number }} of {{ balances.paginator.num_pages }}</a></li>
+                    {% if balances.has_next %}
+                        <li class="page-item"><a href="?page={{ balances.next_page_number }}" class="page-link">Next</a></li>
+                        <li class="page-item"><a href="?page={{ balances.paginator.num_pages}}" class="page-link">Last&raquo</a></li>
+                    {% endif %}
+                    </ul>
+                  </nav>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                      <thead>
+                      <tr>
+                        <th>Shop Name</th>
+                          <th>Total Cylinders Bought</th>
+                        <th>Outstanding Balance Amount</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in balances %}
+                            <tr>
+                                <td>{{ i.name }}</td>
+                                <td>{{ i.total_cylinders_count }}</td>
+                                <td>{{ i.outstanding_balances }}</td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+    </div>
+  </div>  <!-- /.content-header -->
+
+{% endblock %}

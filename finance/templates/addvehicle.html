@@ -1,0 +1,113 @@
+
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Vehicle Expenses</h1>
+          </div><!-- /.col -->
+          <!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+      <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- left column -->
+              <div class="col-sm-6">
+                <div class="card-body">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                      Add a Vehicle Expense
+                  </button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add a Location</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <form method="POST">
+                          <div class="modal-body">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary">
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+      <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h2 class="card-title">Vehicle Expenses Details</h2>
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination justify-content-end">
+                    {% if vehicles.has_previous %}
+                        <li class="page-item"><a href="?page=1" class="page-link">&laquo; First</a></li>
+                        <li class="page-item"><a href="?page={{ vehicles.previous_page_number }}" class="page-link">Previous</a></li>
+                    {% endif %}
+                    <li class="page-item"><a class="page-link">Page {{ vehicles.number }} of {{ vehicles.paginator.num_pages }}</a></li>
+                    {% if vehicles.has_next %}
+                        <li class="page-item"><a href="?page={{ vehicles.next_page_number }}" class="page-link">Next</a></li>
+                        <li class="page-item"><a href="?page={{ vehicles.paginator.num_pages}}" class="page-link">Last&raquo</a></li>
+                    {% endif %}
+                    </ul>
+                  </nav>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                      <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Vehicle Number</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {% for t in vehicles %}
+                      <tr>
+                        <td>{{t.id}}</td>
+                        <td>{{t.date}}</td>
+                        <td>{{ t.vehicle_number }}</td>
+                        <td>{{ t.description }}</td>
+                        <td>{{ t.amount }}</td>
+                      </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
+    </div>
+  </div>  <!-- /.content-header -->
+
+
+{% endblock %}
+{% for i in messages %}
+    {{ i }}
+{% endfor %}

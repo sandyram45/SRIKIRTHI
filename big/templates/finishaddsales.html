@@ -1,0 +1,41 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 justify-content-between">
+{#          <div class="col-sm-6">#}
+{#            #}
+{#          </div><!-- /.col -->#}
+            <h1 class="m-0">Edit Shop Details</h1>
+          <!-- /.col -->
+            <div class="d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" type="button">Back</button>
+            </div>
+        </div><!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+      <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <!-- left column -->
+              <div class="col-sm-12">
+                <div class="card-body">
+                    <div class="form-group col-lg-8">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+    </div>
+  </div>  <!-- /.content-header -->
+{% endblock %}
